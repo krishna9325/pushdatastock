@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "330275474174",
+    "project_id": "stckbreakouts",
+    "storage_bucket": "stckbreakouts.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:330275474174:android:a0da49108d3499288d73af",
+        "android_client_info": {
+          "package_name": "krishnaapps.com.pushdatastockbreakout"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "330275474174-14o82t4htj2n29scv72ndsgl6pub53f5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyByYcOr21IXFVOfgZel8I4iY417301N2eg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "330275474174-14o82t4htj2n29scv72ndsgl6pub53f5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

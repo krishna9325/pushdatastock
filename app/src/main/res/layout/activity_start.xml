@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    tools:context=".StartActivity">
+
+    <Button
+        android:id="@+id/intra_day"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Intra_day Breakout"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="100dp"
+        tools:layout_editor_absoluteX="46dp"
+        tools:layout_editor_absoluteY="111dp" />
+
+    <Button
+        android:id="@+id/indices"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Indices Breakout"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="50dp"
+        tools:layout_editor_absoluteX="32dp"
+        tools:layout_editor_absoluteY="142dp" />
+
+    <Button
+        android:id="@+id/swing"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Swing trades"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="50dp"
+        tools:layout_editor_absoluteX="32dp"
+        tools:layout_editor_absoluteY="99dp" />
+</LinearLayout>
