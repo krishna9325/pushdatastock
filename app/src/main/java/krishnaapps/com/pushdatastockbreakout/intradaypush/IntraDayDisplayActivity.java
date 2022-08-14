@@ -26,9 +26,9 @@ import java.util.List;
 
 import krishnaapps.com.pushdatastockbreakout.R;
 import krishnaapps.com.pushdatastockbreakout.adapter.ImageAdapter;
-import krishnaapps.com.pushdatastockbreakout.modules.Upload;
+import krishnaapps.com.pushdatastockbreakout.modules.IntraDay;
 
-public class ImagesActivity extends AppCompatActivity implements ImageAdapter.OnItemClickListener {
+public class IntraDayDisplayActivity extends AppCompatActivity implements ImageAdapter.OnItemClickListener {
     private RecyclerView mRecyclerView;
     private ImageAdapter mAdapter;
 
@@ -39,12 +39,12 @@ public class ImagesActivity extends AppCompatActivity implements ImageAdapter.On
 
     private String TAG = "ImagesActivity";
 
-    private List<Upload> mUploads;
+    private List<IntraDay> mIntraDays;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_images);
+        setContentView(R.layout.display_intraday_activity);
 
         mRecyclerView = findViewById(R.id.recycler_view);
         mRecyclerView.setHasFixedSize(true);
@@ -52,13 +52,13 @@ public class ImagesActivity extends AppCompatActivity implements ImageAdapter.On
 
         mProgressCircle = findViewById(R.id.progress_circle);
 
-        mUploads = new ArrayList<>();
+        mIntraDays = new ArrayList<>();
 
-        mAdapter = new ImageAdapter(ImagesActivity.this, mUploads);
+        mAdapter = new ImageAdapter(IntraDayDisplayActivity.this, mIntraDays);
 
         mRecyclerView.setAdapter(mAdapter);
 
-        mAdapter.setOnItemClickListener(ImagesActivity.this);
+        mAdapter.setOnItemClickListener(IntraDayDisplayActivity.this);
 
         mStorage = FirebaseStorage.getInstance();
         mDatabaseRef = FirebaseFirestore.getInstance();
@@ -70,7 +70,7 @@ public class ImagesActivity extends AppCompatActivity implements ImageAdapter.On
                 if (value != null) {
                     for (DocumentChange dc : value.getDocumentChanges()) {
                         if (dc.getType() == DocumentChange.Type.ADDED) {
-                            mUploads.add(dc.getDocument().toObject(Upload.class));
+                            mIntraDays.add(dc.getDocument().toObject(IntraDay.class));
                         }
                         mAdapter.notifyDataSetChanged();
                     }
@@ -99,7 +99,7 @@ public class ImagesActivity extends AppCompatActivity implements ImageAdapter.On
 
     @Override
     public void onDeleteClick(int position) {
-        Upload selectedItem = mUploads.get(position);
+        IntraDay selectedItem = mIntraDays.get(position);
         final String selectedKey = String.valueOf(selectedItem.getKey());
 
         StorageReference imageRef = mStorage.getReferenceFromUrl(selectedItem.getImageUrl());
@@ -107,7 +107,7 @@ public class ImagesActivity extends AppCompatActivity implements ImageAdapter.On
             @Override
             public void onSuccess(Void aVoid) {
                 mDatabaseRef.collection("uploads").document(selectedKey).delete();
-                Toast.makeText(ImagesActivity.this, "Item deleted", Toast.LENGTH_SHORT).show();
+                Toast.makeText(IntraDayDisplayActivity.this, "Item deleted", Toast.LENGTH_SHORT).show();
             }
         });
     }

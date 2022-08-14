@@ -18,34 +18,34 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import java.util.List;
 
 import krishnaapps.com.pushdatastockbreakout.R;
-import krishnaapps.com.pushdatastockbreakout.modules.IntraDay;
+import krishnaapps.com.pushdatastockbreakout.modules.Indices;
 
-public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHolder> {
+public class IndicesAdapter extends RecyclerView.Adapter<IndicesAdapter.IndicesViewHolder> {
     private Context mContext;
-    private List<IntraDay> mIntraDays;
-    private OnItemClickListener mListener;
+    private List<Indices> mIndices;
+    private IndicesAdapter.OnIndicesItemClickListener mListener;
 
-    public ImageAdapter(Context context, List<IntraDay> intraDays) {
+    public IndicesAdapter(Context context, List<Indices> uploads) {
         mContext = context;
-        mIntraDays = intraDays;
+        mIndices = uploads;
     }
 
     @Override
-    public ImageViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(mContext).inflate(R.layout.image_items, parent, false);
-        return new ImageViewHolder(v);
+    public IndicesAdapter.IndicesViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View v = LayoutInflater.from(mContext).inflate(R.layout.indices_item, parent, false);
+        return new IndicesAdapter.IndicesViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(ImageViewHolder holder, int position) {
-        IntraDay intraDayCurrent = mIntraDays.get(position);
+    public void onBindViewHolder(IndicesAdapter.IndicesViewHolder holder, int position) {
+        Indices uploadCurrent = mIndices.get(position);
 
-        holder.textViewName.setText(intraDayCurrent.getName());
-        holder.textViewDesc.setText(intraDayCurrent.getDesc());
-        holder.textViewDate.setText(intraDayCurrent.getDate());
+        holder.textViewName.setText(uploadCurrent.getIndicesName());
+        holder.textViewDesc.setText(uploadCurrent.getIndicesDesc());
+        holder.textViewDate.setText(uploadCurrent.getIndicesDate());
 
         Glide.with(mContext)
-                .load(intraDayCurrent.getImageUrl())
+                .load(uploadCurrent.getIndicesImageUrl())
                 .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
                 .placeholder(R.drawable.ic_launcher_background)
                 .into(holder.imageView);
@@ -54,22 +54,21 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
 
     @Override
     public int getItemCount() {
-        return mIntraDays.size();
+        return mIndices.size();
     }
 
-
-    public class ImageViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener,
+    public class IndicesViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener,
             View.OnCreateContextMenuListener, MenuItem.OnMenuItemClickListener {
         public TextView textViewName, textViewDesc, textViewDate;
         public ImageView imageView;
 
-        public ImageViewHolder(View itemView) {
+        public IndicesViewHolder(View itemView) {
             super(itemView);
 
-            textViewName = itemView.findViewById(R.id.text_view_name);
-            textViewDesc = itemView.findViewById(R.id.text_view_desc);
-            textViewDate = itemView.findViewById(R.id.text_view_date);
-            imageView = itemView.findViewById(R.id.image_view_upload);
+            textViewName = itemView.findViewById(R.id.indices_text_view_name);
+            textViewDesc = itemView.findViewById(R.id.indices_text_view_desc);
+            textViewDate = itemView.findViewById(R.id.indices_text_view_date);
+            imageView = itemView.findViewById(R.id.indices_image_view_upload);
 
             itemView.setOnClickListener(this);
             itemView.setOnCreateContextMenuListener(this);
@@ -115,7 +114,7 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
         }
     }
 
-    public interface OnItemClickListener {
+    public interface OnIndicesItemClickListener {
         void onItemClick(int position);
 
         void onWhatEverClick(int position);
@@ -123,7 +122,7 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
         void onDeleteClick(int position);
     }
 
-    public void setOnItemClickListener(OnItemClickListener listener) {
+    public void setOnIndicesItemClickListener(IndicesAdapter.OnIndicesItemClickListener listener) {
         mListener = listener;
     }
 }

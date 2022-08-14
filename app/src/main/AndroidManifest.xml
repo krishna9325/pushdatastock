@@ -10,8 +10,20 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PushDataStockBreakout">
         <activity
+            android:name=".indices.IndicesDisplayActivity"
+            android:exported="false" />
+        <activity
+            android:name=".swing.SwingDisplayActivity"
+            android:exported="false" />
+        <activity
+            android:name=".indices.IndicesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".swing.SwingActivity"
+            android:exported="false" />
+        <activity
             android:name=".StartActivity"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -19,12 +31,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".intradaypush.ImagesActivity"
+            android:name=".intradaypush.IntraDayDisplayActivity"
             android:exported="false" />
         <activity
-            android:name=".intradaypush.MainActivity"
-            android:exported="false">
-        </activity>
+            android:name=".intradaypush.IntraDayActivity"
+            android:exported="false" />
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />

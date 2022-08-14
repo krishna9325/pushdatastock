@@ -7,7 +7,9 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import krishnaapps.com.pushdatastockbreakout.intradaypush.MainActivity;
+import krishnaapps.com.pushdatastockbreakout.indices.IndicesActivity;
+import krishnaapps.com.pushdatastockbreakout.intradaypush.IntraDayActivity;
+import krishnaapps.com.pushdatastockbreakout.swing.SwingActivity;
 
 public class StartActivity extends AppCompatActivity {
 
@@ -21,11 +23,10 @@ public class StartActivity extends AppCompatActivity {
         swingTrade = findViewById(R.id.swing);
         indicesTrade = findViewById(R.id.indices);
 
-        intraDay.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), MainActivity.class));
-            }
-        });
+        indicesTrade.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), IndicesActivity.class)));
+
+        swingTrade.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), SwingActivity.class)));
+
+        intraDay.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), IntraDayActivity.class)));
     }
 }

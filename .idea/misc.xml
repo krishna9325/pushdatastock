@@ -3,10 +3,18 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Android work/PushDataStockBreakout/app/src/main/res/layout/indices_item.xml" value="0.1421875" />
         <entry key="..\:/PushDataStockBreakout/app/src/main/res/layout/activity_images.xml" value="0.25416666666666665" />
+        <entry key="..\:/PushDataStockBreakout/app/src/main/res/layout/activity_images_swing.xml" value="0.16875" />
+        <entry key="..\:/PushDataStockBreakout/app/src/main/res/layout/activity_indices.xml" value="0.1828125" />
+        <entry key="..\:/PushDataStockBreakout/app/src/main/res/layout/activity_intraday.xml" value="0.1890625" />
         <entry key="..\:/PushDataStockBreakout/app/src/main/res/layout/activity_main.xml" value="0.24010416666666667" />
         <entry key="..\:/PushDataStockBreakout/app/src/main/res/layout/activity_start.xml" value="0.18854166666666666" />
+        <entry key="..\:/PushDataStockBreakout/app/src/main/res/layout/activity_swing.xml" value="0.15208333333333332" />
+        <entry key="..\:/PushDataStockBreakout/app/src/main/res/layout/display_indices_activity.xml" value="0.25416666666666665" />
         <entry key="..\:/PushDataStockBreakout/app/src/main/res/layout/image_items.xml" value="0.25416666666666665" />
+        <entry key="..\:/PushDataStockBreakout/app/src/main/res/layout/indices_item.xml" value="0.1859375" />
+        <entry key="..\:/PushDataStockBreakout/app/src/main/res/layout/swing_items.xml" value="0.1828125" />
       </map>
     </option>
   </component>

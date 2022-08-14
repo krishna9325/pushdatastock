@@ -1,9 +1,4 @@
-package krishnaapps.com.pushdatastockbreakout.intradaypush;
-
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
+package krishnaapps.com.pushdatastockbreakout.swing;
 
 import android.app.Activity;
 import android.content.ContentResolver;
@@ -15,7 +10,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
-import android.view.WindowManager.LayoutParams;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,6 +17,11 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -37,12 +36,13 @@ import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
+
 import java.io.FileNotFoundException;
 
 import krishnaapps.com.pushdatastockbreakout.R;
-import krishnaapps.com.pushdatastockbreakout.modules.Upload;
+import krishnaapps.com.pushdatastockbreakout.modules.Swing;
 
-public class MainActivity extends AppCompatActivity {
+public class SwingActivity extends AppCompatActivity {
 
     private static final int PICK_IMAGE_REQUEST = 1;
 
@@ -53,10 +53,10 @@ public class MainActivity extends AppCompatActivity {
     private ImageView mImageView;
     private ProgressBar mProgressBar;
 
-    ActivityResultLauncher<Intent> imageSetCrop;
-    ActivityResultLauncher<Intent> imagePickGalleryLauncher;
+    private ActivityResultLauncher<Intent> imageSetCrop;
+    private ActivityResultLauncher<Intent> imagePickGalleryLauncher;
 
-    SharedPreferences sharedPreferences;
+    private SharedPreferences sharedPreferences;
 
     private Uri mImageUri;
 
@@ -68,18 +68,16 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setFlags(LayoutParams.FLAG_SECURE,LayoutParams.FLAG_SECURE);
-        setContentView(R.layout.activity_main);
-
-        mButtonChooseImage = findViewById(R.id.button_choose_image);
-        mButtonUpload = findViewById(R.id.button_upload);
-        mTextViewShowUploads = findViewById(R.id.text_view_show_uploads);
-        mEditTextFileName = findViewById(R.id.edit_text_file_name);
-        mEditTextDate = findViewById(R.id.edit_text_file_date);
-        mEditTextDesc = findViewById(R.id.edit_text_file_desc);
-        mImageView = findViewById(R.id.image_view);
-        mProgressBar = findViewById(R.id.progress_bar);
-        mEditTextUid = findViewById(R.id.edit_text_file_uid);
+        setContentView(R.layout.activity_swing);
+        mButtonChooseImage = findViewById(R.id.swing_button_choose_image);
+        mButtonUpload = findViewById(R.id.swing_button_upload);
+        mTextViewShowUploads = findViewById(R.id.swing_text_view_show_uploads);
+        mEditTextFileName = findViewById(R.id.swing_edit_text_file_name);
+        mEditTextDate = findViewById(R.id.swing_edit_text_file_date);
+        mEditTextDesc = findViewById(R.id.swing_edit_text_file_desc);
+        mImageView = findViewById(R.id.swing_image_view);
+        mProgressBar = findViewById(R.id.swing_progress_bar);
+        mEditTextUid = findViewById(R.id.swing_edit_text_file_uid);
 
         imageSetCrop = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
@@ -87,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
                     Intent data = result.getData();
                     CropImage.ActivityResult resultCrop = CropImage.getActivityResult(data);
                     if (result.getResultCode() == RESULT_OK && resultCrop != null) {
-                        mImageUri =  resultCrop.getUri();
+                        mImageUri = resultCrop.getUri();
                         Glide.with(this)
                                 .load(mImageUri)
                                 .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
@@ -112,8 +110,8 @@ public class MainActivity extends AppCompatActivity {
                 });
 
         // Storing data into SharedPreferences
-        sharedPreferences = getSharedPreferences("MySharedPref",MODE_PRIVATE);
-        mEditTextUid.setText(String.valueOf(sharedPreferences.getInt("id", 0)));
+        sharedPreferences = getSharedPreferences("MySharedPref", MODE_PRIVATE);
+        mEditTextUid.setText(String.valueOf(sharedPreferences.getInt("swing_id", 0)));
 
 
         mStorageRef = FirebaseStorage.getInstance().getReference("uploads");
@@ -132,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (mUploadTask != null && mUploadTask.isInProgress()) {
-                    Toast.makeText(MainActivity.this, "Upload in progress", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SwingActivity.this, "Upload in progress", Toast.LENGTH_SHORT).show();
                 } else {
                     uploadFile();
                 }
@@ -171,30 +169,30 @@ public class MainActivity extends AppCompatActivity {
                                 }
                             }, 500);
 
-                            Toast.makeText(MainActivity.this, "Upload successful", Toast.LENGTH_LONG).show();
+                            Toast.makeText(SwingActivity.this, "Upload successful", Toast.LENGTH_LONG).show();
                             Task<Uri> uri = taskSnapshot.getStorage().getDownloadUrl();
-                            while(!uri.isComplete());
+                            while (!uri.isComplete()) ;
                             Uri url = uri.getResult();
 //                            String id = db.collection("uploads").document().getId();
 
-                            Upload upload = new Upload(mEditTextFileName.getText().toString().trim(), url.toString(),
+                            Swing upload = new Swing(mEditTextFileName.getText().toString().trim(), url.toString(),
                                     Integer.parseInt(mEditTextUid.getText().toString()), mEditTextDesc.getText().toString().trim(),
                                     mEditTextDate.getText().toString().trim());
 
-                            db.collection("uploads").document(mEditTextUid.getText().toString()).set(upload);
+                            db.collection("swingdb").document(mEditTextUid.getText().toString()).set(upload);
 
                             SharedPreferences.Editor myEdit = sharedPreferences.edit();
-                            myEdit.putInt("id", Integer.parseInt(mEditTextUid.getText().toString()) + 1);
+                            myEdit.putInt("swing_id", Integer.parseInt(mEditTextUid.getText().toString()) + 1);
                             myEdit.commit();
 
-                            mEditTextUid.setText(String.valueOf(sharedPreferences.getInt("id", 0)));
+                            mEditTextUid.setText(String.valueOf(sharedPreferences.getInt("swing_id", 0)));
 
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SwingActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     })
                     .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
@@ -210,7 +208,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void openImagesActivity() {
-        Intent intent = new Intent(this, ImagesActivity.class);
+        Intent intent = new Intent(this, SwingDisplayActivity.class);
         startActivity(intent);
     }
 
@@ -234,8 +232,6 @@ public class MainActivity extends AppCompatActivity {
         final int width = options.outWidth;
         int inSampleSize = 1;
 
-        System.out.println("Height width is: " + height + " " + width);
-
         if (height > 800 || width > 800) {
             // Calculate ratios of height and width to requested one
             final int heightRatio = Math.round((float) height / (float) 800);
@@ -249,12 +245,12 @@ public class MainActivity extends AppCompatActivity {
 
     private void launchCropImage(Uri uri) {
 
-        Intent i = CropImage.activity(uri).setGuidelines(CropImageView.Guidelines.ON).setAspectRatio(1920, 1080)
+        Intent i = CropImage.activity(uri).setGuidelines(CropImageView.Guidelines.ON)
                 .setCropShape(CropImageView.CropShape.RECTANGLE).getIntent(getApplicationContext());
 
         imageSetCrop.launch(i);
 
     }
-
-
 }
+
+

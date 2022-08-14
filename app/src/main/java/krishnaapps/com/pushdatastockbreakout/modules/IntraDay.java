@@ -1,17 +1,17 @@
 package krishnaapps.com.pushdatastockbreakout.modules;
 
-public class Upload {
+public class IntraDay {
     private String mName;
     private String mImageUrl;
     private int mKey;
     private String mDesc;
     private String mDate;
 
-    public Upload() {
+    public IntraDay() {
         //empty constructor needed
     }
 
-    public Upload(String name, String imageUrl, int key, String desc, String date) {
+    public IntraDay(String name, String imageUrl, int key, String desc, String date) {
         if (name.trim().equals("")) {
             name = "No Name";
         }
